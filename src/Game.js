@@ -1,4 +1,14 @@
 import React from 'react';
+import cloud from './img/cloud.png';
+import vehicle from './img/vehicle.png';
+import dinosaur from './img/dinosaur.png';
+import dinosaur_die from './img/dinosaur_die.png';
+import dinosaur_left from './img/dinosaur_left.png';
+import dinosaur_right from './img/dinosaur_right.png';
+import ground from './img/ground.png';
+import obstacle from './img/obstacle.png';
+import house from './img/house.png';
+import line from './img/line.png';
 
 const STATUS = {
     STOP: 'STOP',
@@ -35,16 +45,16 @@ class Game extends React.Component {
         groundImage.onload = onImageLoaded;
         playerImage.onload = onImageLoaded;
 
-        skyImage.src = 'https://s-media-cache-ak0.pinimg.com/236x/d7/b3/cf/d7b3cfe04c2dc44400547ea6ef94ba35.jpg';
-        groundImage.src = './img/ground.png';
-        playerImage.src = './img/dinosaur.png';
-        playerLeftImage.src = './img/dinosaur_left.png';
-        playerRightImage.src = './img/dinosaur_right.png';
-        playerDieImage.src = './img/dinosaur_die.png';
-        obstacleImage.src = './img/obstacle.png';
+        skyImage.src = cloud;
+        groundImage.src = line;
+        playerImage.src = vehicle;
+        playerLeftImage.src = vehicle;
+        playerRightImage.src = vehicle;
+        playerDieImage.src = vehicle;
+        obstacleImage.src = house;
 
         this.options = {
-            fps: 60,
+            fps: 100,
             skySpeed: 40,
             groundSpeed: 100,
             skyImage: skyImage,
@@ -69,9 +79,6 @@ class Game extends React.Component {
     }
 
     componentDidMount() {
-        if (window.innerWidth >= 680) {
-            this.canvas.width = 680;
-        }
 
         const onSpacePress = () => {
             switch (this.status) {
@@ -136,8 +143,8 @@ class Game extends React.Component {
             ? (this.options.groundOffset + groundSpeed)
             : (this.options.groundOffset - width);
         ctx.translate(this.options.skyOffset - this.options.groundOffset, 0);
-        ctx.drawImage(this.options.groundImage, 0, 76);
-        ctx.drawImage(this.options.groundImage, this.options.groundImage.width, 76);
+        ctx.drawImage(this.options.groundImage, 0, 170);
+        ctx.drawImage(this.options.groundImage, this.options.groundImage.width, 170);
 
         // 恐龙
         // 这里已经将坐标还原回左上角
@@ -184,7 +191,7 @@ class Game extends React.Component {
             if (this.currentDistance >= this.obstacles[i].distance) {
                 let offset = width - (this.currentDistance - this.obstacles[i].distance + groundSpeed);
                 if (offset > 0) {
-                    ctx.drawImage(options.obstacleImage, offset, 84);
+                    ctx.drawImage(options.obstacleImage, offset, 124);
                 } else {
                     ++pop;
                 }
@@ -293,7 +300,7 @@ class Game extends React.Component {
 
     render() {
         return (
-            <canvas id="canvas" ref={ref => this.canvas = ref} height={160} width={340}/>
+            <canvas id="canvas" ref={ref => this.canvas = ref} height={500} width={1200}/>
         );
     }
 };
